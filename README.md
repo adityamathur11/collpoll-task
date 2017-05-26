@@ -13,24 +13,24 @@ npm start
 * **Success Response:**
   * **Code:** `200` <br />
   *  **Body** :
-    ```javascript
-    {
-       "customers":[
-          {
-             "name":"Mohamed Coughran",
-             "id":"Skl1lNf8W-",
-             "distance":12.127576526023072
-          },
-          {
-             "name":"Mohamed Coughran",
-             "id":"SyygNGLZZ",
-             "distance":14.511767045147835
-          }
-       ]
-    }
-    ```
+      ```javascript
+      {
+         "customers":[
+            {
+               "name":"Mohamed Coughran",
+               "id":"Skl1lNf8W-",
+               "distance":12.127576526023072
+            },
+            {
+               "name":"Mohamed Coughran",
+               "id":"SyygNGLZZ",
+               "distance":14.511767045147835
+            }
+         ]
+      }
+      ```
 * **error Response:**
-  * **Code:** 500 <br />
+  * **Code:** `500` <br />
     **Body:** :
     ```javascript
     { "error" : "Internal server error" }
@@ -40,15 +40,15 @@ npm start
     </br>
 
 > 2. **to create customer.json file :**
-* **url** : /nearByUsers
+* **url** : /createDataFile
 * **method** : `get`
 * **request body**:
-```javascript
-{
-	"limit" : 1000,
-    "inRadiusLimit" : 200
-}
-```
+    ```javascript
+    {
+        "limit" : 1000,
+        "inRadiusLimit" : 200
+    }
+    ```
 * **Success Response:**
   * **Code:** `200` <br />
   *  **Body** :
@@ -69,7 +69,7 @@ npm start
   ]
     ```
 * **error Response:**
-  * **Code:** 500 <br />
+  * **Code:** `500` <br />
   * **Body:** :
     ```javascript
     { "error" : "Internal server error" }
