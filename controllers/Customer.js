@@ -12,9 +12,28 @@ var express = require('express')
     ,helper = require('../helpers/Helpers');
 
 router.get('/nearByUsers' , function (req , res) {
-    stream = fs.createReadStream("public/Customer.json", {encoding: 'utf8'}).pipe(JSONStream.parse(['customers',true ]))
+    var result = [];
+    stream = fs.createReadStream("public/" + config.DataFile, {encoding: 'utf8'}).pipe(JSONStream.parse(['customers',true ]))
         .on('data', function(data) {
-            res.status(200).json({error : "Internal server error"});
+            var distance =  helper.getDistance(parseFloat(data.latitude) , parseFloat(data.longitude));
+            if(distance< (config.radius *1000)){
+                data.distance =distance;
+                delete data.latitude;
+                delete data.longitude;
+                result.push(data);
+            }
+        })
+        .on('end' , function () {
+            result.sort(function (a,b) {
+                if(a.id > b.id){
+                    return 1;
+                }
+                else if(a.id < b.id){
+                    return -1;
+                }
+                else return 0;
+            });
+            res.status(200).json({"customers" : result});
         })
         .on('error' , function () {
             res.status(500).json({error : "Internal server error"});
@@ -26,12 +45,13 @@ router.post('/createDataFile', function(req, res) {
     var upperLimit = req.body.limit || 100;
     var obj;
     var customerList = [];
-    var tempCoordinate = helper.getRandomInRadiusPoint();
+    var tempCoordinate;
     var inRadiusLimit = req.body.inRadiusLimit || Math.floor(Math.random() * upperLimit/(Math.ceil(Math.random()*10)));
     for(var i = 0 ; i < inRadiusLimit ; i++){
         obj = {};
         obj.name = random_name();
         obj.id = shortId.generate();
+        tempCoordinate = helper.getRandomInRadiusPoint();
         obj.latitude = tempCoordinate.latitude;
         obj.longitude = tempCoordinate.longitude;
         customerList.push(obj);
