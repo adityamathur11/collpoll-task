@@ -22,11 +22,10 @@ module.exports = {
 
         var newlat = y + y0;
         var newlon = x + x0;
-        var newlon2 = xp + x0;
 
         return {
             'latitude': newlat.toFixed(10),
-            'longitude': newlon2.toFixed(5)
+            'longitude': newlon.toFixed(5)
         }
     },
 

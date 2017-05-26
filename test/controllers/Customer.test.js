@@ -50,7 +50,6 @@ describe('customer test cases', function () {
             .get("/nearByUsers")
             .end(function (err, res) {
                 if (err) throw err;
-//                    expect(res.body).to.deep.equal({error: 'Internal server error'});
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.deep.equal({customers: []});
                 done();
