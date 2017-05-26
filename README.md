@@ -41,7 +41,7 @@ npm start
 
 > 2. **to create customer.json file :**
 * **url** : /createDataFile
-* **method** : `get`
+* **method** : `post`
 * **request body**:
     ```javascript
     {
@@ -74,4 +74,3 @@ npm start
     ```javascript
     { "error" : "Internal server error" }
     ```
-    
