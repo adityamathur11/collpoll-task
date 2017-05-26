@@ -8,10 +8,10 @@ module.exports = {
     getRandomInRadiusPoint: function () {
         var y0 = config.coordinate.latitude;
         var x0 = config.coordinate.longitude;
-        var rd = config.radius / 111300; //about 111300 meters in one degree
+        var rd = config.radius / 111300;
 
-        var u = Math.random()+1;
-        var v = Math.random()+1;
+        var u = Math.random() + 1;
+        var v = Math.random() + 1;
 
         var w = rd * Math.sqrt(u);
         var t = 2 * Math.PI * v;
@@ -30,9 +30,14 @@ module.exports = {
         }
     },
 
-    getDistance: function (lat2, lon2) {
-        var R = 6371000;
-        var a = 0.5 - Math.cos((lat2 - config.coordinate.latitude) * Math.PI / 180) / 2 + Math.cos(config.coordinate.latitude * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * (1 - Math.cos((lon2 - config.coordinate.longitude) * Math.PI / 180)) / 2;
-        return R * 2 * Math.asin(Math.sqrt(a));
+    getDistance: function (lat2, lon2, callback) {
+        try {
+            var R = 6371000;
+            var a = 0.5 - Math.cos((lat2 - config.coordinate.latitude) * Math.PI / 180) / 2 + Math.cos(config.coordinate.latitude * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * (1 - Math.cos((lon2 - config.coordinate.longitude) * Math.PI / 180)) / 2;
+            callback(null, R * 2 * Math.asin(Math.sqrt(a)));
+        }
+        catch (err) {
+            callback(err, null);
+        }
     }
 };

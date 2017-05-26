@@ -28,6 +28,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.4.2",
+    "mock-fs": "^4.3.0",
     "supertest": "^3.0.0"
   }
 }

@@ -13,15 +13,20 @@ var express = require('express')
 
 router.get('/nearByUsers' , function (req , res) {
     var result = [];
-    stream = fs.createReadStream("public/" + config.DataFile, {encoding: 'utf8'}).pipe(JSONStream.parse(['customers',true ]))
+    var stream = fs.createReadStream("public/" + config.DataFile, {encoding: 'utf8'}).on('error' , function (err) {
+        res.status(500).json({error : "Internal server error"});
+    });
+    stream.pipe(JSONStream.parse(['customers',true ]))
         .on('data', function(data) {
-            var distance =  helper.getDistance(parseFloat(data.latitude) , parseFloat(data.longitude));
-            if(distance< (config.radius *1000)){
-                data.distance =distance;
-                delete data.latitude;
-                delete data.longitude;
-                result.push(data);
-            }
+            helper.getDistance(parseFloat(data.latitude) , parseFloat(data.longitude) , function (err , distance) {
+                if(err) res.status(500).json({error : "Internal server error"});
+                if(distance< (config.radius *1000)){
+                    data.distance =distance;
+                    delete data.latitude;
+                    delete data.longitude;
+                    result.push(data);
+                }
+            });
         })
         .on('end' , function () {
             result.sort(function (a,b) {
@@ -35,7 +40,7 @@ router.get('/nearByUsers' , function (req , res) {
             });
             res.status(200).json({"customers" : result});
         })
-        .on('error' , function () {
+        .on('error' , function (err) {
             res.status(500).json({error : "Internal server error"});
         });
 
