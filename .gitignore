@@ -58,4 +58,4 @@ typings/
 .env
 .idea
 public/*.json___jb_old___
-
+public/Customer.json

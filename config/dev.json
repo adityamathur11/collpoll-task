@@ -1,3 +1,8 @@
 {
-  "DataFile" : "Customer.json"
+  "DataFile" : "Customer.json",
+  "coordinate" : {
+    "latitude" : 12.935076,
+    "longitude" : 77.614277
+  },
+  "radius" : 10
 }
