@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="customers">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script type="text/javascript" src="website/app/app.module.js"></script>
+    <script type="text/javascript" src="website/app/app.provider.js"></script>
+    <script type="text/javascript" src="website/app/app.service.js"></script>
+    <script type="text/javascript" src="website/app/controllers/showCustomers.js"></script>
+
+
+</head>
+<body style="padding-top: 70px;">
+<div ng-controller="showCustomers">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand">{{welcomeMessage}}</div>
+            </div>
+        </div>
+    </nav>
+    <div class="container"  style="padding: 40px">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td><b>Name</b></td>
+                    <td><b>id</b></td>
+                    <td><b>distance(in meters)</b></td>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="customer in userList">
+                <td>{{ customer.name }}</td>
+                <td>{{customer.id}}</td>
+                <td>{{customer.distance}}</td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" ng-click = "updateData(limit)">Generate new customer data file</button>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="usr" placeholder="total new customers" ng-model = "limit">(optional, by default 100 customers)
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
