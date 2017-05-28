@@ -6,6 +6,8 @@ npm test
 npm start
 ```
 
+### website link:
+    http://localhost:3000
 ### APIs
 > 1. **to get near by users :**
 * **url** : /nearByUsers

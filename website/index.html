@@ -13,19 +13,16 @@
 
 
 </head>
-<body>
+<body style="padding-top: 70px;">
 <div ng-controller="showCustomers">
-    <!--<h1>-->
-        <!--{{welcomeMessage}}-->
-    <!--</h1>-->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <div class="navbar-brand">{{welcomeMessage}}</div>
             </div>
         </div>
     </nav>
-    <div class="container" >
+    <div class="container"  style="padding: 40px">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -42,10 +39,10 @@
             </tr>
         </table>
         <div class="row">
-            <div class="col-md-1">
-                <button type="button" class="btn btn-primary" ng-click = "updateData(limit)">Primary</button>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary" ng-click = "updateData(limit)">Generate new customer data file</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <input type="text" class="form-control" id="usr" placeholder="total new customers" ng-model = "limit">(optional, by default 100 customers)
             </div>
 
