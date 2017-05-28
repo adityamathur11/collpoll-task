@@ -8,8 +8,8 @@ var express = require('express')
     ,router = express()
     ,config = require('config')
     ,shortId = require('shortid')
-    ,random_name = require('node-random-name')
     ,helper = require('../helpers/Helpers');
+var faker = require('faker');
 
 router.get('/nearByUsers' , function (req , res) {
     var result = [];
@@ -21,7 +21,7 @@ router.get('/nearByUsers' , function (req , res) {
             helper.getDistance(parseFloat(data.latitude) , parseFloat(data.longitude) , function (err , distance) {
                 if(err) res.status(500).json({error : "Internal server error"});
                 if(distance< (config.radius *1000)){
-                    data.distance =distance;
+                    data.distance =distance.toFixed(2);
                     delete data.latitude;
                     delete data.longitude;
                     result.push(data);
@@ -54,7 +54,7 @@ router.post('/createDataFile', function(req, res) {
     var inRadiusLimit = req.body.inRadiusLimit || Math.floor(Math.random() * upperLimit/(Math.ceil(Math.random()*10)));
     for(var i = 0 ; i < inRadiusLimit ; i++){
         obj = {};
-        obj.name = random_name();
+        obj.name = faker.name.findName();
         obj.id = shortId.generate();
         tempCoordinate = helper.getRandomInRadiusPoint();
         obj.latitude = tempCoordinate.latitude;
@@ -64,7 +64,7 @@ router.post('/createDataFile', function(req, res) {
 
     for(i = 0 ; i < upperLimit-inRadiusLimit ; i++){
         obj = {};
-        obj.name = random_name();
+        obj.name = faker.name.findName();
         obj.id = shortId.generate();
         obj.latitude = helper.getRandomCoordinate();
         obj.longitude = helper.getRandomCoordinate();
